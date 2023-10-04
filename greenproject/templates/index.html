@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form method="POST" enctype="multipart/form-data" class="p-3 shadow" >
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" name="name" class="form-control" placeholder="Enter the name">
+                </div><br>
+                <div class="form-group">
+                    <textarea class="form-control" name="desc" rows="3" placeholder="Enter your details"></textarea>
+
+                </div><br>
+                <div class="form-group">
+                    <input type="date" name="date" class="form-control" placeholder="pick the date">
+                </div><br>
+                <div class="custom-file">
+                    <input type="file" name="img" class="form-control">
+                </div><br>
+                <input type="submit" class="btn btn-primary">
+            </form>
+        </div>
+        <div class="col-md-6">
+            {% for i in feather %}
+            <div class="shadow card">
+
+           <h4 class="card-header">{{i.name}}</h4>
+           <div class="card-body">
+               <img class="card-img-left" src="{{i.img.url}}" style="width:140px; height:120px;" alt="Card image cap">
+               <p class="card-title">{{i.desc}} </p>
+           <p class="card-title">{{i.date}} </p>
+<!--               <div class="start-btn">-->
+               <a class="btn btn-success" href="{% url 'update' i.id %}" >Update</a>
+               <a class="btn btn-danger" href="{% url 'delete' i.id %}">Delete</a>
+
+<!--               </div>-->
+
+                 </div>
+
+        </div><br>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
